@@ -142,10 +142,10 @@ const COLORS = {
   bg: '#0a0a0a',
   cardBg: '#111111',
   cardBorder: '#1a1a1a',
-  gold: '#c9a962',
-  goldDark: '#8b7355',
-  goldBright: '#FFD700', // Or brillant Roobet
-  goldShiny: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)', // Gradient or brillant
+  gold: '#FFD700', // Or brillant Roobet
+  goldDark: '#DAA520',
+  goldBright: '#FFD700',
+  goldShiny: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)',
   text: '#ffffff',
   textMuted: '#6b7280',
   textDark: '#4a4a4a'
