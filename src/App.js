@@ -795,60 +795,114 @@ const AccueilPage = ({ setActiveTab }) => (
   </div>
 );
 
-// Page Race (Leaderboard)
+// Page Race (Leaderboard) - ROOBET $15,000 Race
 const RacePage = () => {
-  const [selectedCasino, setSelectedCasino] = useState('roobet');
+  // Leaderboard avec les bons prix
+  const RACE_LEADERBOARD = [
+    { rank: 1, name: 'xQcOW', wagered: 2855075, prize: 2500 },
+    { rank: 2, name: 'Trainwreck', wagered: 1759458, prize: 1500 },
+    { rank: 3, name: 'Roshtein', wagered: 1233861, prize: 1000 },
+    { rank: 4, name: 'AyeZee', wagered: 921503, prize: 700 },
+    { rank: 5, name: 'Yassuo', wagered: 718924, prize: 500 },
+    { rank: 6, name: 'xposed', wagered: 587412, prize: 400 },
+    { rank: 7, name: 'Foss', wagered: 445891, prize: 350 },
+    { rank: 8, name: 'Cooks', wagered: 298734, prize: 250 },
+    { rank: 9, name: 'DDK', wagered: 256482, prize: 175 },
+    { rank: 10, name: 'JuicyJ', wagered: 184251, prize: 125 }
+  ];
   
   return (
     <div>
-      {/* Casino Selector */}
-      <div style={{
-        display: 'flex',
-        gap: '0.75rem',
-        justifyContent: 'center',
-        marginBottom: '3rem',
-        flexWrap: 'wrap'
-      }}>
-        {CASINOS.slice(0, 4).map(casino => (
-          <button
-            key={casino.id}
-            onClick={() => setSelectedCasino(casino.id)}
-            style={{
-              padding: '0.75rem 1.5rem',
-              background: selectedCasino === casino.id ? COLORS.gold : COLORS.cardBg,
-              border: `1px solid ${selectedCasino === casino.id ? COLORS.gold : COLORS.cardBorder}`,
-              borderRadius: 8,
-              color: selectedCasino === casino.id ? '#000' : COLORS.textMuted,
-              fontSize: '0.9rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              transition: 'all 0.3s ease'
-            }}
-          >
-            <span>{casino.logo}</span>
-            <span>{casino.name}</span>
-          </button>
-        ))}
+      {/* Header avec logo Roobet */}
+      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '1rem',
+          background: 'linear-gradient(135deg, #ff9500 0%, #ff6b00 100%)',
+          padding: '1rem 2rem',
+          borderRadius: 16,
+          marginBottom: '2rem'
+        }}>
+          <span style={{ fontSize: '2.5rem' }}>🦘</span>
+          <span style={{ fontSize: '2rem', fontWeight: 900, color: '#fff', letterSpacing: '2px' }}>ROOBET</span>
+        </div>
+        
+        <h1 style={{
+          fontSize: 'clamp(2rem, 6vw, 3.5rem)',
+          fontWeight: 900,
+          color: COLORS.text,
+          marginBottom: '0.5rem'
+        }}>
+          RACE <span style={{ color: COLORS.gold }}>$15,000</span>
+        </h1>
+        
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          background: `${COLORS.gold}20`,
+          border: `1px solid ${COLORS.gold}40`,
+          padding: '0.5rem 1.25rem',
+          borderRadius: 50,
+          marginBottom: '1rem'
+        }}>
+          <span style={{ fontSize: '0.9rem' }}>💰</span>
+          <span style={{ 
+            color: COLORS.gold, 
+            fontSize: '0.9rem', 
+            fontWeight: 600
+          }}>2x $7,500 Bi-weekly</span>
+        </div>
+        
+        <p style={{ color: COLORS.textMuted, fontSize: '1rem', maxWidth: 600, margin: '0 auto' }}>
+          Joue sur Roobet avec le code <span style={{
+            background: '#1f2937',
+            padding: '0.2rem 0.6rem',
+            borderRadius: 4,
+            color: COLORS.text,
+            fontWeight: 600,
+            fontFamily: 'monospace'
+          }}>{SITE_CODE}</span> et grimpe dans le classement !
+        </p>
       </div>
-
-      <SectionTitle 
-        icon="🏆" 
-        title={`RACE ${CASINOS.find(c => c.id === selectedCasino)?.name}`}
-        subtitle="4.000€ à vous partager !" 
-      />
 
       {/* Countdown */}
       <div style={{ marginBottom: '3rem' }}>
         <p style={{ textAlign: 'center', color: COLORS.textMuted, marginBottom: '1rem', fontSize: '0.85rem', letterSpacing: '2px' }}>
-          SE TERMINE DANS :
+          ⏰ PROCHAINE DISTRIBUTION DANS :
         </p>
         <Countdown />
       </div>
 
-      {/* Podium */}
+      {/* Prize Pool Info */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+        gap: '1rem',
+        maxWidth: 600,
+        margin: '0 auto 3rem'
+      }}>
+        {[
+          { label: 'Prize Pool Total', value: '$15,000', icon: '💰' },
+          { label: 'Par période', value: '$7,500', icon: '🗓️' },
+          { label: 'Top gagnants', value: '10', icon: '🏆' }
+        ].map((item, i) => (
+          <div key={i} style={{
+            background: COLORS.cardBg,
+            border: `1px solid ${COLORS.cardBorder}`,
+            borderRadius: 12,
+            padding: '1.25rem',
+            textAlign: 'center'
+          }}>
+            <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{item.icon}</div>
+            <div style={{ fontSize: '1.25rem', fontWeight: 800, color: COLORS.gold }}>{item.value}</div>
+            <div style={{ fontSize: '0.75rem', color: COLORS.textMuted }}>{item.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Podium Top 3 */}
       <div style={{
         display: 'flex',
         justifyContent: 'center',
@@ -856,88 +910,158 @@ const RacePage = () => {
         gap: '1rem',
         marginBottom: '3rem'
       }}>
-        {[LEADERBOARD[1], LEADERBOARD[0], LEADERBOARD[2]].map((player, i) => {
-          const heights = [160, 200, 140];
+        {[RACE_LEADERBOARD[1], RACE_LEADERBOARD[0], RACE_LEADERBOARD[2]].map((player, i) => {
+          const heights = [180, 220, 160];
           const colors = ['#C0C0C0', '#FFD700', '#CD7F32'];
           const ranks = [2, 1, 3];
+          const prizes = [1500, 2500, 1000];
           
           return (
             <div key={i} style={{
               background: COLORS.cardBg,
-              borderRadius: 12,
+              borderRadius: 16,
               padding: '1.5rem',
               textAlign: 'center',
-              border: `1px solid ${COLORS.cardBorder}`,
+              border: `2px solid ${colors[i]}40`,
               minHeight: heights[i],
-              width: i === 1 ? 160 : 140,
+              width: i === 1 ? 180 : 150,
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'flex-end'
+              justifyContent: 'flex-end',
+              boxShadow: i === 1 ? `0 10px 40px ${colors[i]}30` : 'none'
             }}>
-              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>
                 {i === 1 ? '👑' : i === 0 ? '🥈' : '🥉'}
               </div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: colors[i] }}>#{ranks[i]}</div>
-              <div style={{ fontWeight: 600, color: COLORS.text, marginBottom: '0.25rem', fontSize: '0.9rem' }}>{player.name}</div>
-              <div style={{ fontSize: '0.7rem', color: COLORS.textMuted, marginBottom: '0.5rem' }}>
-                ${player.wagered.toLocaleString()}
+              <div style={{ 
+                fontSize: '1.5rem', 
+                fontWeight: 900, 
+                color: colors[i],
+                textShadow: `0 0 20px ${colors[i]}50`
+              }}>#{ranks[i]}</div>
+              <div style={{ fontWeight: 700, color: COLORS.text, marginBottom: '0.25rem', fontSize: '1rem' }}>
+                {player.name}
+              </div>
+              <div style={{ fontSize: '0.75rem', color: COLORS.textMuted, marginBottom: '0.75rem' }}>
+                ${player.wagered.toLocaleString()} wagered
               </div>
               <div style={{
-                padding: '0.4rem 0.75rem',
-                background: colors[i],
-                borderRadius: 20,
-                fontWeight: 700,
+                padding: '0.6rem 1rem',
+                background: `linear-gradient(135deg, ${colors[i]} 0%, ${colors[i]}cc 100%)`,
+                borderRadius: 25,
+                fontWeight: 800,
                 color: i === 1 ? '#000' : '#fff',
-                fontSize: '0.85rem'
-              }}>€{player.prize}</div>
+                fontSize: '1.1rem',
+                boxShadow: `0 4px 15px ${colors[i]}50`
+              }}>${prizes[i]}</div>
             </div>
           );
         })}
       </div>
 
-      {/* Table */}
+      {/* Full Leaderboard Table */}
       <div style={{
         background: COLORS.cardBg,
-        borderRadius: 12,
+        borderRadius: 16,
         overflow: 'hidden',
         border: `1px solid ${COLORS.cardBorder}`,
-        maxWidth: 800,
+        maxWidth: 900,
         margin: '0 auto'
       }}>
+        {/* Table Header */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '60px 1fr 1fr 100px',
-          padding: '1rem 1.5rem',
+          gridTemplateColumns: '80px 1fr 1fr 120px',
+          padding: '1.25rem 2rem',
           background: COLORS.cardBorder,
-          fontWeight: 600,
+          fontWeight: 700,
           color: COLORS.textMuted,
-          fontSize: '0.75rem',
-          letterSpacing: '1px'
+          fontSize: '0.8rem',
+          letterSpacing: '1px',
+          textTransform: 'uppercase'
         }}>
-          <div>RANG</div>
-          <div>JOUEUR</div>
-          <div>WAGERED</div>
-          <div>GAINS</div>
+          <div>Rang</div>
+          <div>Joueur</div>
+          <div>Wagered</div>
+          <div>Gains</div>
         </div>
         
-        {LEADERBOARD.slice(3).map((player, i) => (
-          <div key={i} style={{
-            display: 'grid',
-            gridTemplateColumns: '60px 1fr 1fr 100px',
-            padding: '0.75rem 1.5rem',
-            borderTop: `1px solid ${COLORS.cardBorder}`,
+        {/* Table Rows */}
+        {RACE_LEADERBOARD.map((player, i) => {
+          const isTop3 = i < 3;
+          const colors = ['#FFD700', '#C0C0C0', '#CD7F32'];
+          
+          return (
+            <div key={i} style={{
+              display: 'grid',
+              gridTemplateColumns: '80px 1fr 1fr 120px',
+              padding: '1rem 2rem',
+              borderTop: `1px solid ${COLORS.cardBorder}`,
+              alignItems: 'center',
+              transition: 'background 0.2s ease',
+              background: isTop3 ? `${colors[i]}08` : 'transparent'
+            }}
+            onMouseEnter={e => e.currentTarget.style.background = COLORS.cardBorder}
+            onMouseLeave={e => e.currentTarget.style.background = isTop3 ? `${colors[i]}08` : 'transparent'}
+            >
+              <div style={{ 
+                fontWeight: 700, 
+                color: isTop3 ? colors[i] : COLORS.textMuted,
+                fontSize: isTop3 ? '1.1rem' : '1rem'
+              }}>
+                {isTop3 ? ['🥇', '🥈', '🥉'][i] : `#${player.rank}`}
+              </div>
+              <div style={{ 
+                color: COLORS.text, 
+                fontSize: '0.95rem',
+                fontWeight: isTop3 ? 600 : 400
+              }}>{player.name}</div>
+              <div style={{ 
+                color: COLORS.gold, 
+                fontWeight: 600, 
+                fontSize: '0.95rem' 
+              }}>${player.wagered.toLocaleString()}</div>
+              <div style={{ 
+                color: '#4ade80', 
+                fontWeight: 700, 
+                fontSize: '1rem',
+                background: 'rgba(74, 222, 128, 0.1)',
+                padding: '0.4rem 0.75rem',
+                borderRadius: 20,
+                textAlign: 'center'
+              }}>${player.prize}</div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* CTA */}
+      <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+        <button
+          style={{
+            padding: '1.25rem 3rem',
+            background: 'linear-gradient(135deg, #ff9500 0%, #ff6b00 100%)',
+            border: 'none',
+            borderRadius: 50,
+            color: '#fff',
+            fontSize: '1.1rem',
+            fontWeight: 700,
+            cursor: 'pointer',
+            display: 'inline-flex',
             alignItems: 'center',
-            transition: 'background 0.2s ease'
+            gap: '0.75rem',
+            boxShadow: '0 10px 30px rgba(255, 149, 0, 0.3)',
+            transition: 'all 0.3s ease'
           }}
-          onMouseEnter={e => e.currentTarget.style.background = COLORS.cardBorder}
-          onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-          >
-            <div style={{ fontWeight: 600, color: COLORS.textMuted }}>#{player.rank}</div>
-            <div style={{ color: COLORS.text, fontSize: '0.9rem' }}>{player.name}</div>
-            <div style={{ color: COLORS.gold, fontWeight: 600, fontSize: '0.9rem' }}>${player.wagered.toLocaleString()}</div>
-            <div style={{ color: '#4ade80', fontWeight: 700, fontSize: '0.9rem' }}>€{player.prize}</div>
-          </div>
-        ))}
+          onClick={() => window.open('https://roobet.com/?ref=FASTBONUS', '_blank')}
+          onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+          onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+        >
+          🦘 Rejoindre Roobet maintenant
+        </button>
+        <p style={{ color: COLORS.textMuted, fontSize: '0.85rem', marginTop: '1rem' }}>
+          Utilise le code <strong style={{ color: COLORS.text }}>{SITE_CODE}</strong> pour participer
+        </p>
       </div>
     </div>
   );
