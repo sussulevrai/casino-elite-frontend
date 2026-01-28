@@ -824,7 +824,11 @@ const RacePage = () => {
           borderRadius: 16,
           marginBottom: '2rem'
         }}>
-          <span style={{ fontSize: '2.5rem' }}>🦘</span>
+          <img 
+            src="/roobet-logo.png" 
+            alt="Roobet" 
+            style={{ height: '40px', width: 'auto' }}
+          />
           <span style={{ fontSize: '2rem', fontWeight: 900, color: '#fff', letterSpacing: '2px' }}>ROOBET</span>
         </div>
         
@@ -1057,7 +1061,7 @@ const RacePage = () => {
           onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
           onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
         >
-          🦘 Rejoindre Roobet maintenant
+          <img src="/roobet-logo.png" alt="Roobet" style={{ height: '24px', width: 'auto' }} /> Rejoindre Roobet maintenant
         </button>
         <p style={{ color: COLORS.textMuted, fontSize: '0.85rem', marginTop: '1rem' }}>
           Utilise le code <strong style={{ color: COLORS.text }}>{SITE_CODE}</strong> pour participer
