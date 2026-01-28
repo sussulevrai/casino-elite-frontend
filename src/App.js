@@ -142,10 +142,9 @@ const COLORS = {
   bg: '#0a0a0a',
   cardBg: '#111111',
   cardBorder: '#1a1a1a',
-  gold: '#FFD700', // Or brillant Roobet
-  goldDark: '#DAA520',
-  goldBright: '#FFD700',
-  goldShiny: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)',
+  gold: '#FFB800', // Or Roobet principal
+  goldLight: '#FFDF00', // Or clair
+  goldDark: '#FF8C00', // Or foncé/orange
   text: '#ffffff',
   textMuted: '#6b7280',
   textDark: '#4a4a4a'
@@ -229,21 +228,21 @@ const MainOfferCard = ({ offer }) => {
         gap: '0.5rem',
         marginBottom: '1.5rem'
       }}>
-        <span style={{ color: COLORS.gold, fontSize: '0.7rem' }}>★</span>
+        <span style={{ color: '#FFB800', fontSize: '0.7rem' }}>★</span>
         <span style={{ 
           color: COLORS.textMuted, 
           fontSize: '0.7rem', 
           letterSpacing: '3px',
           textTransform: 'uppercase'
         }}>Featured</span>
-        <span style={{ color: COLORS.gold, fontSize: '0.7rem' }}>★</span>
+        <span style={{ color: '#FFB800', fontSize: '0.7rem' }}>★</span>
       </div>
       
       {/* Icon */}
       <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
         <span style={{ 
           fontSize: '4rem',
-          filter: 'drop-shadow(0 0 10px rgba(201, 169, 98, 0.3))'
+          filter: 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.4))'
         }}>
           {offer.icon}
         </span>
@@ -254,7 +253,9 @@ const MainOfferCard = ({ offer }) => {
         <h3 style={{
           fontSize: '1.4rem',
           fontWeight: 800,
-          color: COLORS.gold,
+          background: 'linear-gradient(180deg, #FFDF00 0%, #FFB800 50%, #FF8C00 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
           marginBottom: '0.25rem',
           letterSpacing: '1px'
         }}>{offer.title}</h3>
@@ -269,7 +270,7 @@ const MainOfferCard = ({ offer }) => {
       {/* Rewards Label */}
       <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
         <span style={{
-          color: COLORS.gold,
+          color: '#FFB800',
           fontSize: '0.65rem',
           letterSpacing: '3px',
           textTransform: 'uppercase'
@@ -287,7 +288,7 @@ const MainOfferCard = ({ offer }) => {
             color: COLORS.textMuted,
             fontSize: '0.85rem'
           }}>
-            <span style={{ color: COLORS.gold }}>▪</span>
+            <span style={{ color: '#FFB800' }}>▪</span>
             <span>
               {feature.text}{' '}
               {feature.isCode ? (
@@ -301,9 +302,9 @@ const MainOfferCard = ({ offer }) => {
                   fontFamily: 'monospace'
                 }}>{feature.highlight}</span>
               ) : feature.isLink ? (
-                <span style={{ color: COLORS.gold, cursor: 'pointer' }}>{feature.highlight}</span>
+                <span style={{ color: '#FFB800', cursor: 'pointer' }}>{feature.highlight}</span>
               ) : (
-                <span style={{ color: COLORS.gold }}>{feature.highlight}</span>
+                <span style={{ color: '#FFB800' }}>{feature.highlight}</span>
               )}
             </span>
           </div>
@@ -315,7 +316,7 @@ const MainOfferCard = ({ offer }) => {
         style={{
           width: '100%',
           padding: '0.9rem 1.5rem',
-          background: `linear-gradient(135deg, ${COLORS.gold} 0%, ${COLORS.goldDark} 100%)`,
+          background: 'linear-gradient(180deg, #FFDF00 0%, #FFB800 50%, #FF8C00 100%)',
           border: 'none',
           borderRadius: 8,
           color: '#000',
@@ -327,7 +328,7 @@ const MainOfferCard = ({ offer }) => {
           justifyContent: 'center',
           gap: '0.5rem',
           transition: 'all 0.3s ease',
-          boxShadow: hover ? `0 5px 20px ${COLORS.gold}40` : 'none'
+          boxShadow: hover ? '0 5px 20px rgba(255, 184, 0, 0.5)' : 'none'
         }}
         onClick={() => {
           if (offer.btnLink.startsWith('#')) {
@@ -546,8 +547,11 @@ const AccueilPage = ({ setActiveTab }) => (
       }}>
         Les meilleures offres par{' '}
         <span style={{ 
-          color: COLORS.gold, 
-          fontWeight: 700 
+          background: 'linear-gradient(180deg, #FFDF00 0%, #FFB800 50%, #FF8C00 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          fontWeight: 700,
+          filter: 'drop-shadow(0 0 10px rgba(255, 184, 0, 0.4))'
         }}>Roobet</span>
       </h1>
       <p style={{
