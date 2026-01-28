@@ -1133,26 +1133,285 @@ const BonusPage = () => (
   </div>
 );
 
-// Page Nos Offres
-const OffresPage = () => (
-  <div>
-    <SectionTitle 
-      icon="🎁" 
-      title="BONUSES" 
-      subtitle="Exclusive Rewards" 
-    />
+// Page Nos Offres - Style Fast-Bonus avec tableau
+const OffresPage = () => {
+  const OFFERS_LIST = [
+    {
+      id: 'cosmobet1',
+      name: 'CosmoBet',
+      logo: 'https://cosmobet.com/assets/logo.svg',
+      logoColor: '#6366f1',
+      bonus: '100%',
+      bonusDetail: "jusqu'à 500$",
+      freeSpins: '1000 FS',
+      wager: 'x30',
+      link: 'https://cosmobet.com/?ref=FASTBONUS'
+    },
+    {
+      id: 'shuffle',
+      name: 'Shuffle',
+      logo: 'https://shuffle.com/logo.svg',
+      logoColor: '#8b5cf6',
+      bonus: '200%',
+      bonusDetail: "jusqu'à 3.000$",
+      freeSpins: '-',
+      wager: 'x35',
+      link: 'https://shuffle.com/?r=FASTBONUS'
+    },
+    {
+      id: 'betbolt',
+      name: 'Betbolt',
+      logo: 'https://betbolt.com/logo.svg',
+      logoColor: '#3b82f6',
+      bonus: 'Race',
+      bonusDetail: '3.000$',
+      freeSpins: '-',
+      wager: 'x35',
+      link: 'https://betbolt.com/?ref=FASTBONUS'
+    },
+    {
+      id: 'cosmobet2',
+      name: 'CosmoBet',
+      logo: 'https://cosmobet.com/assets/logo.svg',
+      logoColor: '#6366f1',
+      bonus: '100%',
+      bonusDetail: "jusqu'à 500$",
+      freeSpins: '1000 FS',
+      wager: 'x30',
+      link: 'https://cosmobet.com/?ref=FASTBONUS'
+    },
+    {
+      id: 'razed',
+      name: 'Razed',
+      logo: 'https://razed.com/logo.svg',
+      logoColor: '#10b981',
+      bonus: '300%',
+      bonusDetail: "jusqu'à 15.000$",
+      freeSpins: '-',
+      wager: 'x40',
+      link: 'https://razed.com/?ref=FASTBONUS'
+    }
+  ];
 
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-      gap: '1.5rem'
-    }}>
-      {CASINOS.map(casino => (
-        <BonusCard key={casino.id} casino={casino} />
-      ))}
+  // Logo components pour chaque casino
+  const CasinoLogo = ({ name, color }) => {
+    const logos = {
+      'CosmoBet': (
+        <div style={{ 
+          width: 45, 
+          height: 45, 
+          borderRadius: 10,
+          background: `linear-gradient(135deg, ${color} 0%, ${color}99 100%)`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '0.7rem',
+          fontWeight: 800,
+          color: '#fff'
+        }}>
+          Cosmo
+        </div>
+      ),
+      'Shuffle': (
+        <div style={{ 
+          width: 45, 
+          height: 45, 
+          borderRadius: 10,
+          background: 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+      ),
+      'Betbolt': (
+        <div style={{ 
+          width: 45, 
+          height: 45, 
+          borderRadius: 10,
+          background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '0.6rem',
+          fontWeight: 800,
+          color: '#fff'
+        }}>
+          BetB•It
+        </div>
+      ),
+      'Razed': (
+        <div style={{ 
+          width: 45, 
+          height: 45, 
+          borderRadius: 10,
+          background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '0.65rem',
+          fontWeight: 800,
+          color: '#fff',
+          fontStyle: 'italic'
+        }}>
+          RAZED
+        </div>
+      )
+    };
+    return logos[name] || <div style={{ width: 45, height: 45, background: color, borderRadius: 10 }} />;
+  };
+
+  return (
+    <div>
+      {/* Header */}
+      <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+        <h1 style={{
+          fontSize: 'clamp(2rem, 5vw, 3rem)',
+          fontWeight: 300,
+          color: COLORS.text,
+          marginBottom: '1rem'
+        }}>
+          Les meilleurs casinos en ligne en <span style={{ fontWeight: 700 }}>2026</span>
+        </h1>
+        <p style={{
+          color: COLORS.textMuted,
+          fontSize: '1rem',
+          maxWidth: 800,
+          margin: '0 auto',
+          lineHeight: 1.7
+        }}>
+          Dans le contexte effervescent des casinos en ligne en 2024, il est crucial de s'aligner avec les meilleurs pour assurer une expérience de jeu exceptionnelle. Nos partenaires ont été sélectionnés avec une attention minutieuse afin de vous offrir des avantages exclusifs et une diversité de jeux répondant à tous les goûts.
+        </p>
+      </div>
+
+      {/* Offers Table */}
+      <div style={{
+        background: COLORS.cardBg,
+        borderRadius: 16,
+        overflow: 'hidden',
+        border: `1px solid ${COLORS.cardBorder}`
+      }}>
+        {OFFERS_LIST.map((offer, i) => (
+          <div 
+            key={offer.id + i}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '200px 150px 120px 80px 180px',
+              alignItems: 'center',
+              padding: '1.25rem 2rem',
+              borderBottom: i < OFFERS_LIST.length - 1 ? `1px solid ${COLORS.cardBorder}` : 'none',
+              transition: 'background 0.2s ease'
+            }}
+            onMouseEnter={e => e.currentTarget.style.background = COLORS.cardBorder + '50'}
+            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+          >
+            {/* Casino Name & Logo */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <CasinoLogo name={offer.name} color={offer.logoColor} />
+              <div>
+                <div style={{ fontWeight: 700, color: COLORS.text, fontSize: '1.1rem' }}>{offer.name}</div>
+                <div style={{ fontSize: '0.8rem', color: COLORS.textMuted }}>{offer.name}</div>
+              </div>
+            </div>
+
+            {/* Bonus */}
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontWeight: 700, color: COLORS.text, fontSize: '1.1rem' }}>{offer.bonus}</div>
+              <div style={{ fontSize: '0.8rem', color: COLORS.textMuted }}>{offer.bonusDetail}</div>
+            </div>
+
+            {/* Free Spins */}
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ 
+                fontWeight: 700, 
+                color: offer.freeSpins !== '-' ? COLORS.gold : COLORS.textMuted,
+                fontSize: '1rem'
+              }}>{offer.freeSpins}</div>
+            </div>
+
+            {/* Wager */}
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontWeight: 700, color: COLORS.text, fontSize: '1rem' }}>{offer.wager}</div>
+              <div style={{ fontSize: '0.75rem', color: COLORS.textMuted }}>wager</div>
+            </div>
+
+            {/* CTA Button */}
+            <div style={{ textAlign: 'right' }}>
+              <button
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  background: '#fff',
+                  border: 'none',
+                  borderRadius: 8,
+                  color: '#000',
+                  fontSize: '0.9rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  whiteSpace: 'nowrap'
+                }}
+                onClick={() => window.open(offer.link, '_blank')}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = COLORS.gold;
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = '#fff';
+                }}
+              >
+                Récupérer mon bonus
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Discord Banner */}
+      <div style={{
+        background: 'linear-gradient(135deg, #5865F2 0%, #4752C4 100%)',
+        borderRadius: 16,
+        padding: '2rem 3rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: '3rem',
+        flexWrap: 'wrap',
+        gap: '1.5rem'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+          <svg width="50" height="50" viewBox="0 0 127.14 96.36" fill="#fff">
+            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+          </svg>
+          <div>
+            <div style={{ fontSize: '1.6rem', fontWeight: 700, color: '#fff' }}>
+              50€ à gagner tous les jours
+            </div>
+            <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1rem' }}>
+              sur notre serveur Discord
+            </div>
+          </div>
+        </div>
+        <button
+          style={{
+            padding: '1rem 2.5rem',
+            background: '#fff',
+            border: 'none',
+            borderRadius: 50,
+            color: '#5865F2',
+            fontSize: '1.1rem',
+            fontWeight: 700,
+            cursor: 'pointer'
+          }}
+          onClick={() => window.open(DISCORD_LINK, '_blank')}
+        >
+          Rejoindre
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // Page Bonus Hunt
 const BonusHuntPage = () => (
@@ -1389,7 +1648,6 @@ export default function App() {
     { id: 'accueil', label: 'Accueil' },
     { id: 'race', label: 'Race' },
     { id: 'bonus', label: 'Bonus' },
-    { id: 'offres', label: 'Nos offres' },
     { id: 'bonushunt', label: 'Bonus hunt' },
     { id: 'bjtableau', label: 'Blackjack' }
   ];
@@ -1526,7 +1784,6 @@ export default function App() {
         {activeTab === 'accueil' && <AccueilPage setActiveTab={setActiveTab} />}
         {activeTab === 'race' && <RacePage />}
         {activeTab === 'bonus' && <BonusPage />}
-        {activeTab === 'offres' && <OffresPage />}
         {activeTab === 'bonushunt' && <BonusHuntPage />}
         {activeTab === 'bjtableau' && <BJTableauPage />}
       </main>
