@@ -67,7 +67,7 @@ const CASINOS = [
 const MAIN_OFFERS = [
   {
     id: 'bonus',
-    icon: '🎁',
+    icon: 'roobet',
     title: '50€ OFFERT',
     subtitle: 'APRÈS 2.000$ DE WAGER',
     features: [
@@ -80,7 +80,7 @@ const MAIN_OFFERS = [
   },
   {
     id: 'leaderboard',
-    icon: '🏆',
+    icon: 'roobet',
     title: 'CLASSEMENT MENSUEL',
     subtitle: '15.000$ À GAGNER',
     features: [
@@ -93,7 +93,7 @@ const MAIN_OFFERS = [
   },
   {
     id: 'codedrop',
-    icon: '🎰',
+    icon: 'roobet',
     title: 'CODE DROP & FREE SPINS',
     subtitle: 'OFFERTS RÉGULIÈREMENT',
     features: [
@@ -238,14 +238,29 @@ const MainOfferCard = ({ offer }) => {
         <span style={{ color: '#FFB800', fontSize: '0.7rem' }}>★</span>
       </div>
       
-      {/* Icon */}
+      {/* Icon - Roobet Logo */}
       <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-        <span style={{ 
-          fontSize: '4rem',
-          filter: 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.4))'
+        <div style={{
+          width: 80,
+          height: 80,
+          borderRadius: '50%',
+          background: 'linear-gradient(180deg, #FFDF00 0%, #FFB800 50%, #FF8C00 100%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          margin: '0 auto',
+          boxShadow: '0 0 20px rgba(255, 184, 0, 0.4)'
         }}>
-          {offer.icon}
-        </span>
+          <img 
+            src="/roobet-logo.png" 
+            alt="Roobet" 
+            style={{ 
+              height: '50px', 
+              width: 'auto',
+              filter: 'brightness(0) invert(1)'
+            }}
+          />
+        </div>
       </div>
       
       {/* Title */}
