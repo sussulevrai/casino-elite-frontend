@@ -144,6 +144,8 @@ const COLORS = {
   cardBorder: '#1a1a1a',
   gold: '#c9a962',
   goldDark: '#8b7355',
+  goldBright: '#FFD700', // Or brillant Roobet
+  goldShiny: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)', // Gradient or brillant
   text: '#ffffff',
   textMuted: '#6b7280',
   textDark: '#4a4a4a'
@@ -667,11 +669,12 @@ const AccueilPage = ({ setActiveTab }) => (
         <h2 style={{
           fontSize: 'clamp(3rem, 8vw, 5rem)',
           fontWeight: 900,
-          background: `linear-gradient(135deg, ${COLORS.gold} 0%, #ffd700 50%, ${COLORS.gold} 100%)`,
+          background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           letterSpacing: '2px',
-          lineHeight: 1
+          lineHeight: 1,
+          filter: 'drop-shadow(0 0 20px rgba(255, 215, 0, 0.5))'
         }}>
           $15,000
         </h2>
@@ -741,7 +744,8 @@ const AccueilPage = ({ setActiveTab }) => (
             <div style={{ 
               fontSize: '1.1rem', 
               fontWeight: 800, 
-              color: COLORS.gold 
+              color: '#FFD700',
+              textShadow: '0 0 10px rgba(255, 215, 0, 0.5)'
             }}>{item.prize}</div>
             <div style={{ fontSize: '0.7rem', color: COLORS.textMuted }}>{item.label}</div>
           </div>
@@ -816,9 +820,17 @@ const RacePage = () => {
       {/* Header avec logo Roobet */}
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <img 
-          src="/roobet-logo.png.png" 
+          src="/roobet-logo.png" 
           alt="Roobet" 
-          style={{ height: '80px', width: 'auto', marginBottom: '1.5rem' }}
+          style={{ 
+            height: '120px', 
+            width: 'auto', 
+            marginBottom: '1.5rem',
+            filter: 'drop-shadow(0 0 20px rgba(255, 149, 0, 0.5))'
+          }}
+          onError={(e) => {
+            e.target.style.display = 'none';
+          }}
         />
         
         <h1 style={{
@@ -827,22 +839,27 @@ const RacePage = () => {
           color: COLORS.text,
           marginBottom: '0.5rem'
         }}>
-          RACE <span style={{ color: COLORS.gold }}>$15,000</span>
+          RACE <span style={{ 
+            background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            filter: 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.5))'
+          }}>$15,000</span>
         </h1>
         
         <div style={{
           display: 'inline-flex',
           alignItems: 'center',
           gap: '0.5rem',
-          background: `${COLORS.gold}20`,
-          border: `1px solid ${COLORS.gold}40`,
+          background: 'rgba(255, 215, 0, 0.15)',
+          border: '1px solid rgba(255, 215, 0, 0.4)',
           padding: '0.5rem 1.25rem',
           borderRadius: 50,
           marginBottom: '1rem'
         }}>
           <span style={{ fontSize: '0.9rem' }}>💰</span>
           <span style={{ 
-            color: COLORS.gold, 
+            color: '#FFD700', 
             fontSize: '0.9rem', 
             fontWeight: 600
           }}>2x $7,500 Bi-weekly</span>
@@ -889,7 +906,12 @@ const RacePage = () => {
             textAlign: 'center'
           }}>
             <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{item.icon}</div>
-            <div style={{ fontSize: '1.25rem', fontWeight: 800, color: COLORS.gold }}>{item.value}</div>
+            <div style={{ 
+              fontSize: '1.25rem', 
+              fontWeight: 800, 
+              color: '#FFD700',
+              textShadow: '0 0 10px rgba(255, 215, 0, 0.5)'
+            }}>{item.value}</div>
             <div style={{ fontSize: '0.75rem', color: COLORS.textMuted }}>{item.label}</div>
           </div>
         ))}
@@ -1010,9 +1032,10 @@ const RacePage = () => {
                 fontWeight: isTop3 ? 600 : 400
               }}>{player.name}</div>
               <div style={{ 
-                color: COLORS.gold, 
+                color: '#FFD700', 
                 fontWeight: 600, 
-                fontSize: '0.95rem' 
+                fontSize: '0.95rem',
+                textShadow: '0 0 8px rgba(255, 215, 0, 0.4)'
               }}>${player.wagered.toLocaleString()}</div>
               <div style={{ 
                 color: '#4ade80', 
@@ -1050,7 +1073,7 @@ const RacePage = () => {
           onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
           onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
         >
-          <img src="/roobet-logo.png.png" alt="Roobet" style={{ height: '24px', width: 'auto' }} /> Rejoindre Roobet maintenant
+          <img src="/roobet-logo.png" alt="Roobet" style={{ height: '24px', width: 'auto' }} /> Rejoindre Roobet maintenant
         </button>
         <p style={{ color: COLORS.textMuted, fontSize: '0.85rem', marginTop: '1rem' }}>
           Utilise le code <strong style={{ color: COLORS.text }}>{SITE_CODE}</strong> pour participer
