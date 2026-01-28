@@ -815,22 +815,11 @@ const RacePage = () => {
     <div>
       {/* Header avec logo Roobet */}
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <div style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '1rem',
-          background: 'linear-gradient(135deg, #ff9500 0%, #ff6b00 100%)',
-          padding: '1rem 2rem',
-          borderRadius: 16,
-          marginBottom: '2rem'
-        }}>
-          <img 
-            src="/roobet-logo.png" 
-            alt="Roobet" 
-            style={{ height: '40px', width: 'auto' }}
-          />
-          <span style={{ fontSize: '2rem', fontWeight: 900, color: '#fff', letterSpacing: '2px' }}>ROOBET</span>
-        </div>
+        <img 
+          src="/roobet-logo.png.png" 
+          alt="Roobet" 
+          style={{ height: '80px', width: 'auto', marginBottom: '1.5rem' }}
+        />
         
         <h1 style={{
           fontSize: 'clamp(2rem, 6vw, 3.5rem)',
@@ -1061,7 +1050,7 @@ const RacePage = () => {
           onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
           onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
         >
-          <img src="/roobet-logo.png" alt="Roobet" style={{ height: '24px', width: 'auto' }} /> Rejoindre Roobet maintenant
+          <img src="/roobet-logo.png.png" alt="Roobet" style={{ height: '24px', width: 'auto' }} /> Rejoindre Roobet maintenant
         </button>
         <p style={{ color: COLORS.textMuted, fontSize: '0.85rem', marginTop: '1rem' }}>
           Utilise le code <strong style={{ color: COLORS.text }}>{SITE_CODE}</strong> pour participer
