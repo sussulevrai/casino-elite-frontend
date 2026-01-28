@@ -5,6 +5,9 @@ const DISCORD_LINK = 'https://discord.gg/ton-serveur';
 const TWITCH_LINK = 'https://twitch.tv/ton-stream';
 const SITE_CODE = 'FASTBONUS';
 
+// Roobet API Configuration - Via Backend
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
+
 // ==================== DONNÉES CASINOS ====================
 const CASINOS = [
   {
@@ -85,7 +88,7 @@ const MAIN_OFFERS = [
     subtitle: '15.000$ À GAGNER',
     features: [
       { text: 'Inscris-toi avec le code', highlight: SITE_CODE, isCode: true },
-      { text: 'Mise sur', highlight: '2.000$', isLink: false },
+      { text: 'Mise sur', highlight: 'Roobet.com', isLink: false, suffix: ' avec nous' },
       { text: 'Consulte le', highlight: 'classement en temps réel', isLink: true }
     ],
     btnText: 'Voir le classement',
@@ -220,47 +223,16 @@ const MainOfferCard = ({ offer }) => {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      {/* Featured Badge */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '0.5rem',
-        marginBottom: '1.5rem'
-      }}>
-        <span style={{ color: '#FFB800', fontSize: '0.7rem' }}>★</span>
-        <span style={{ 
-          color: COLORS.textMuted, 
-          fontSize: '0.7rem', 
-          letterSpacing: '3px',
-          textTransform: 'uppercase'
-        }}>Featured</span>
-        <span style={{ color: '#FFB800', fontSize: '0.7rem' }}>★</span>
-      </div>
-      
       {/* Icon - Roobet Kangourou */}
       <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-        <div style={{
-          width: 70,
-          height: 70,
-          borderRadius: '50%',
-          background: '#1a1a1a',
-          border: '2px solid #FFB800',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          margin: '0 auto',
-          boxShadow: '0 0 15px rgba(255, 184, 0, 0.3)'
-        }}>
-          <img 
-            src="/roobet-icon.png" 
-            alt="Roobet" 
-            style={{ 
-              height: '45px', 
-              width: 'auto'
-            }}
-          />
-        </div>
+        <img 
+          src="/roobet-icon.png" 
+          alt="Roobet" 
+          style={{ 
+            height: '80px', 
+            width: 'auto'
+          }}
+        />
       </div>
       
       {/* Title */}
@@ -321,6 +293,7 @@ const MainOfferCard = ({ offer }) => {
               ) : (
                 <span style={{ color: '#FFB800' }}>{feature.highlight}</span>
               )}
+              {feature.suffix && <span style={{ color: COLORS.textMuted }}>{feature.suffix}</span>}
             </span>
           </div>
         ))}
@@ -364,20 +337,9 @@ const MainOfferCard = ({ offer }) => {
         borderTop: `1px solid ${COLORS.cardBorder}`
       }}>
         <span style={{ color: COLORS.textMuted, fontSize: '0.8rem' }}>
-          Use Code "<span style={{ color: COLORS.text, fontWeight: 600 }}>{SITE_CODE}</span>"
+          Code "<span style={{ color: COLORS.text, fontWeight: 600 }}>{SITE_CODE}</span>"
         </span>
       </div>
-      
-      {/* Disclaimer */}
-      <p style={{
-        fontSize: '0.55rem',
-        color: COLORS.textDark,
-        textAlign: 'center',
-        marginTop: '0.75rem',
-        lineHeight: 1.4
-      }}>
-        Use of the code will automatically enters you into FastBonus2.0's leaderboards when wagering on this code.
-      </p>
     </div>
   );
 };
@@ -818,20 +780,82 @@ const AccueilPage = ({ setActiveTab }) => (
   </div>
 );
 
-// Page Race (Leaderboard) - ROOBET $15,000 Race
+// Page Race (Leaderboard) - ROOBET $15,000 Race with API
 const RacePage = () => {
-  // Leaderboard avec les bons prix
-  const RACE_LEADERBOARD = [
-    { rank: 1, name: 'xQcOW', wagered: 2855075, prize: 2500 },
-    { rank: 2, name: 'Trainwreck', wagered: 1759458, prize: 1500 },
-    { rank: 3, name: 'Roshtein', wagered: 1233861, prize: 1000 },
-    { rank: 4, name: 'AyeZee', wagered: 921503, prize: 700 },
-    { rank: 5, name: 'Yassuo', wagered: 718924, prize: 500 },
-    { rank: 6, name: 'xposed', wagered: 587412, prize: 400 },
-    { rank: 7, name: 'Foss', wagered: 445891, prize: 350 },
-    { rank: 8, name: 'Cooks', wagered: 298734, prize: 250 },
-    { rank: 9, name: 'DDK', wagered: 256482, prize: 175 },
-    { rank: 10, name: 'JuicyJ', wagered: 184251, prize: 125 }
+  const [leaderboard, setLeaderboard] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Prix pour le top 10
+  const PRIZES = [2500, 1500, 1000, 700, 500, 400, 350, 250, 175, 125];
+
+  // Fetch leaderboard from Backend (qui appelle Roobet API)
+  useEffect(() => {
+    const fetchLeaderboard = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${BACKEND_URL}/api/roobet/leaderboard`);
+        
+        if (!response.ok) {
+          throw new Error('Erreur API');
+        }
+        
+        const data = await response.json();
+        console.log('Roobet API response:', data);
+        
+        // Transformer les données de l'API (adapter selon la structure de réponse)
+        let players = [];
+        if (data.leaderboard) {
+          players = data.leaderboard;
+        } else if (data.users) {
+          players = data.users;
+        } else if (Array.isArray(data)) {
+          players = data;
+        }
+        
+        const formattedData = players.slice(0, 10).map((player, index) => ({
+          rank: index + 1,
+          name: player.username || player.name || player.user || `Player${index + 1}`,
+          wagered: player.wagered || player.wager || player.totalWager || player.amount || 0,
+          prize: PRIZES[index] || 0
+        }));
+        
+        if (formattedData.length > 0) {
+          setLeaderboard(formattedData);
+        }
+        setError(null);
+      } catch (err) {
+        console.error('Erreur API Roobet:', err);
+        setError('Impossible de charger le classement');
+        // Données de secours si l'API échoue
+        setLeaderboard([
+          { rank: 1, name: 'Player1', wagered: 0, prize: 2500 },
+          { rank: 2, name: 'Player2', wagered: 0, prize: 1500 },
+          { rank: 3, name: 'Player3', wagered: 0, prize: 1000 },
+          { rank: 4, name: 'Player4', wagered: 0, prize: 700 },
+          { rank: 5, name: 'Player5', wagered: 0, prize: 500 },
+          { rank: 6, name: 'Player6', wagered: 0, prize: 400 },
+          { rank: 7, name: 'Player7', wagered: 0, prize: 350 },
+          { rank: 8, name: 'Player8', wagered: 0, prize: 250 },
+          { rank: 9, name: 'Player9', wagered: 0, prize: 175 },
+          { rank: 10, name: 'Player10', wagered: 0, prize: 125 }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLeaderboard();
+    // Refresh toutes les 60 secondes
+    const interval = setInterval(fetchLeaderboard, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Données pour l'affichage
+  const RACE_LEADERBOARD = leaderboard.length > 0 ? leaderboard : [
+    { rank: 1, name: 'Chargement...', wagered: 0, prize: 2500 },
+    { rank: 2, name: 'Chargement...', wagered: 0, prize: 1500 },
+    { rank: 3, name: 'Chargement...', wagered: 0, prize: 1000 }
   ];
   
   return (
