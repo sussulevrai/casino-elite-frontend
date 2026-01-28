@@ -238,26 +238,26 @@ const MainOfferCard = ({ offer }) => {
         <span style={{ color: '#FFB800', fontSize: '0.7rem' }}>★</span>
       </div>
       
-      {/* Icon - Roobet Logo */}
+      {/* Icon - Roobet Kangourou */}
       <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
         <div style={{
-          width: 80,
-          height: 80,
+          width: 70,
+          height: 70,
           borderRadius: '50%',
-          background: 'linear-gradient(180deg, #FFDF00 0%, #FFB800 50%, #FF8C00 100%)',
+          background: '#1a1a1a',
+          border: '2px solid #FFB800',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           margin: '0 auto',
-          boxShadow: '0 0 20px rgba(255, 184, 0, 0.4)'
+          boxShadow: '0 0 15px rgba(255, 184, 0, 0.3)'
         }}>
           <img 
-            src="/roobet-logo.png" 
+            src="/roobet-icon.png" 
             alt="Roobet" 
             style={{ 
-              height: '50px', 
-              width: 'auto',
-              filter: 'brightness(0) invert(1)'
+              height: '45px', 
+              width: 'auto'
             }}
           />
         </div>
