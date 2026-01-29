@@ -5,8 +5,8 @@ const DISCORD_LINK = 'https://discord.gg/ton-serveur';
 const TWITCH_LINK = 'https://twitch.tv/ton-stream';
 const SITE_CODE = 'FASTBONUS';
 
-// Roobet API Configuration - Via Backend
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
+// Roobet API Configuration - Via Backend (CORRIGÉ)
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://casino-elite-backend-production.up.railway.app';
 
 // ==================== DONNÉES CASINOS ====================
 const CASINOS = [
@@ -794,6 +794,7 @@ const RacePage = () => {
     const fetchLeaderboard = async () => {
       try {
         setLoading(true);
+        // CORRIGÉ: URL correcte avec le chemin complet
         const response = await fetch(`${BACKEND_URL}/api/roobet/leaderboard`);
         
         if (!response.ok) {
@@ -998,10 +999,10 @@ const RacePage = () => {
                 textShadow: `0 0 20px ${colors[i]}50`
               }}>#{ranks[i]}</div>
               <div style={{ fontWeight: 700, color: COLORS.text, marginBottom: '0.25rem', fontSize: '1rem' }}>
-                {player.name}
+                {player?.name || 'Chargement...'}
               </div>
               <div style={{ fontSize: '0.75rem', color: COLORS.textMuted, marginBottom: '0.75rem' }}>
-                ${player.wagered.toLocaleString()} wagered
+                ${(player?.wagered || 0).toLocaleString()} wagered
               </div>
               <div style={{
                 padding: '0.6rem 1rem',
@@ -1116,7 +1117,7 @@ const RacePage = () => {
           onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
           onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
         >
-          <img src="/roobet-logo.png" alt="Roobet" style={{ height: '24px', width: 'auto' }} /> Rejoindre Roobet maintenant
+          🦘 Rejoindre Roobet maintenant
         </button>
         <p style={{ color: COLORS.textMuted, fontSize: '0.85rem', marginTop: '1rem' }}>
           Utilise le code <strong style={{ color: COLORS.text }}>{SITE_CODE}</strong> pour participer
