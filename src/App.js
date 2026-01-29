@@ -411,6 +411,11 @@ const RacePage = () => {
 
   const RACE_LEADERBOARD = leaderboard.length > 0 ? leaderboard : PRIZES.map((prize, i) => ({ rank: i + 1, name: 'Chargement...', wagered: 0, prize }));
   
+  // Top 3 pour le podium
+  const top3 = RACE_LEADERBOARD.slice(0, 3);
+  // #4 à #10 pour le tableau
+  const rest = RACE_LEADERBOARD.slice(3);
+  
   return (
     <div>
       <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
@@ -506,47 +511,118 @@ const RacePage = () => {
         ))}
       </div>
 
-      {/* Podium */}
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', gap: '1.5rem', marginBottom: '4rem' }}>
-        {[RACE_LEADERBOARD[1], RACE_LEADERBOARD[0], RACE_LEADERBOARD[2]].map((player, i) => {
-          const heights = [200, 240, 180];
-          const colors = ['#C0C0C0', '#FFD700', '#CD7F32'];
-          const ranks = [2, 1, 3];
-          const prizes = [1500, 2500, 1000];
-          
-          return (
-            <div key={i} style={{
-              background: COLORS.cardBg,
-              borderRadius: 16,
-              padding: '1.75rem',
-              textAlign: 'center',
-              border: `2px solid ${colors[i]}40`,
-              minHeight: heights[i],
-              width: i === 1 ? 200 : 170,
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              boxShadow: i === 1 ? `0 10px 40px ${colors[i]}30` : 'none'
-            }}>
-              <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}>{i === 1 ? '👑' : i === 0 ? '🥈' : '🥉'}</div>
-              <div style={{ fontSize: '1.75rem', fontWeight: 900, color: colors[i], textShadow: `0 0 20px ${colors[i]}50` }}>#{ranks[i]}</div>
-              <div style={{ fontWeight: 700, color: COLORS.text, marginBottom: '0.5rem', fontSize: '1.1rem' }}>{player?.name || 'Chargement...'}</div>
-              <div style={{ fontSize: '0.85rem', color: COLORS.textMuted, marginBottom: '1rem' }}>${(player?.wagered || 0).toLocaleString()} wagered</div>
-              <div style={{
-                padding: '0.75rem 1.25rem',
-                background: `linear-gradient(135deg, ${colors[i]} 0%, ${colors[i]}cc 100%)`,
-                borderRadius: 25,
-                fontWeight: 800,
-                color: i === 1 ? '#000' : '#fff',
-                fontSize: '1.2rem',
-                boxShadow: `0 4px 15px ${colors[i]}50`
-              }}>${prizes[i]}</div>
-            </div>
-          );
-        })}
+      {/* PODIUM STYLE VRAI PODIUM - DÉCALÉ */}
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'flex-end', 
+        gap: '1rem', 
+        marginBottom: '4rem',
+        padding: '0 1rem'
+      }}>
+        {/* #2 - Gauche - Plus bas */}
+        <div style={{
+          background: COLORS.cardBg,
+          borderRadius: 16,
+          padding: '1.5rem',
+          textAlign: 'center',
+          border: `2px solid #C0C0C040`,
+          width: 180,
+          marginBottom: 0
+        }}>
+          <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🥈</div>
+          <div style={{ 
+            fontSize: '1.5rem', 
+            fontWeight: 900, 
+            color: '#C0C0C0',
+            textShadow: '0 0 15px #C0C0C050'
+          }}>#2</div>
+          <div style={{ fontWeight: 700, color: COLORS.text, margin: '0.5rem 0', fontSize: '1rem' }}>
+            {top3[1]?.name || 'Chargement...'}
+          </div>
+          <div style={{ fontSize: '0.8rem', color: COLORS.textMuted, marginBottom: '1rem' }}>
+            ${(top3[1]?.wagered || 0).toLocaleString()} wagered
+          </div>
+          <div style={{
+            padding: '0.6rem 1rem',
+            background: 'linear-gradient(135deg, #C0C0C0 0%, #a8a8a8 100%)',
+            borderRadius: 20,
+            fontWeight: 800,
+            color: '#000',
+            fontSize: '1.1rem'
+          }}>${top3[1]?.prize || 1500}</div>
+        </div>
+
+        {/* #1 - Centre - Plus haut */}
+        <div style={{
+          background: COLORS.cardBg,
+          borderRadius: 16,
+          padding: '2rem 1.5rem',
+          textAlign: 'center',
+          border: `2px solid #FFD70060`,
+          width: 200,
+          marginBottom: 40,
+          boxShadow: '0 15px 50px rgba(255, 215, 0, 0.3)'
+        }}>
+          <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>👑</div>
+          <div style={{ 
+            fontSize: '2rem', 
+            fontWeight: 900, 
+            color: '#FFD700',
+            textShadow: '0 0 20px #FFD70050'
+          }}>#1</div>
+          <div style={{ fontWeight: 700, color: COLORS.text, margin: '0.5rem 0', fontSize: '1.15rem' }}>
+            {top3[0]?.name || 'Chargement...'}
+          </div>
+          <div style={{ fontSize: '0.85rem', color: COLORS.textMuted, marginBottom: '1rem' }}>
+            ${(top3[0]?.wagered || 0).toLocaleString()} wagered
+          </div>
+          <div style={{
+            padding: '0.75rem 1.25rem',
+            background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
+            borderRadius: 25,
+            fontWeight: 800,
+            color: '#000',
+            fontSize: '1.3rem',
+            boxShadow: '0 5px 20px rgba(255, 215, 0, 0.4)'
+          }}>${top3[0]?.prize || 2500}</div>
+        </div>
+
+        {/* #3 - Droite - Encore plus bas */}
+        <div style={{
+          background: COLORS.cardBg,
+          borderRadius: 16,
+          padding: '1.25rem',
+          textAlign: 'center',
+          border: `2px solid #CD7F3240`,
+          width: 170,
+          marginBottom: -20
+        }}>
+          <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🥉</div>
+          <div style={{ 
+            fontSize: '1.3rem', 
+            fontWeight: 900, 
+            color: '#CD7F32',
+            textShadow: '0 0 15px #CD7F3250'
+          }}>#3</div>
+          <div style={{ fontWeight: 700, color: COLORS.text, margin: '0.5rem 0', fontSize: '0.95rem' }}>
+            {top3[2]?.name || 'Chargement...'}
+          </div>
+          <div style={{ fontSize: '0.75rem', color: COLORS.textMuted, marginBottom: '1rem' }}>
+            ${(top3[2]?.wagered || 0).toLocaleString()} wagered
+          </div>
+          <div style={{
+            padding: '0.5rem 1rem',
+            background: 'linear-gradient(135deg, #CD7F32 0%, #b8722c 100%)',
+            borderRadius: 20,
+            fontWeight: 800,
+            color: '#fff',
+            fontSize: '1rem'
+          }}>${top3[2]?.prize || 1000}</div>
+        </div>
       </div>
 
-      {/* Leaderboard Table */}
+      {/* Leaderboard Table - COMMENCE AU #4 */}
       <div style={{
         background: COLORS.cardBg,
         borderRadius: 16,
@@ -572,28 +648,24 @@ const RacePage = () => {
           <div>Gains</div>
         </div>
         
-        {RACE_LEADERBOARD.map((player, i) => {
-          const isTop3 = i < 3;
-          const colors = ['#FFD700', '#C0C0C0', '#CD7F32'];
-          
-          return (
-            <div key={i} style={{
-              display: 'grid',
-              gridTemplateColumns: '80px 1fr 1fr 120px',
-              padding: '1.25rem 2rem',
-              borderTop: `1px solid ${COLORS.cardBorder}`,
-              alignItems: 'center',
-              background: isTop3 ? `${colors[i]}08` : 'transparent'
-            }}>
-              <div style={{ fontWeight: 700, color: isTop3 ? colors[i] : COLORS.textMuted, fontSize: isTop3 ? '1.2rem' : '1rem' }}>
-                {isTop3 ? ['🥇', '🥈', '🥉'][i] : `#${player.rank}`}
-              </div>
-              <div style={{ color: COLORS.text, fontSize: '1rem', fontWeight: isTop3 ? 600 : 400 }}>{player.name}</div>
-              <div style={{ color: '#FFD700', fontWeight: 600, fontSize: '1rem', textShadow: '0 0 8px rgba(255, 215, 0, 0.4)' }}>${player.wagered.toLocaleString()}</div>
-              <div style={{ color: '#4ade80', fontWeight: 700, fontSize: '1.1rem', background: 'rgba(74, 222, 128, 0.1)', padding: '0.5rem 1rem', borderRadius: 20, textAlign: 'center' }}>${player.prize}</div>
+        {/* Affiche seulement #4 à #10 */}
+        {rest.map((player, i) => (
+          <div key={i} style={{
+            display: 'grid',
+            gridTemplateColumns: '80px 1fr 1fr 120px',
+            padding: '1.25rem 2rem',
+            borderTop: `1px solid ${COLORS.cardBorder}`,
+            alignItems: 'center',
+            background: 'transparent'
+          }}>
+            <div style={{ fontWeight: 700, color: COLORS.textMuted, fontSize: '1rem' }}>
+              #{player.rank}
             </div>
-          );
-        })}
+            <div style={{ color: COLORS.text, fontSize: '1rem', fontWeight: 400 }}>{player.name}</div>
+            <div style={{ color: '#FFD700', fontWeight: 600, fontSize: '1rem', textShadow: '0 0 8px rgba(255, 215, 0, 0.4)' }}>${player.wagered.toLocaleString()}</div>
+            <div style={{ color: '#4ade80', fontWeight: 700, fontSize: '1.1rem', background: 'rgba(74, 222, 128, 0.1)', padding: '0.5rem 1rem', borderRadius: 20, textAlign: 'center' }}>${player.prize}</div>
+          </div>
+        ))}
       </div>
 
       {/* CTA */}
