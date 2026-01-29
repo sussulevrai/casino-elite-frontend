@@ -418,15 +418,16 @@ const RacePage = () => {
   
   return (
     <div>
-      <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+      {/* Header compact */}
+      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <img 
           src="/roobet-logo.png" 
           alt="Roobet" 
-          style={{ height: '120px', width: 'auto', marginBottom: '2rem', filter: 'drop-shadow(0 0 20px rgba(255, 149, 0, 0.5))' }}
+          style={{ height: '100px', width: 'auto', marginBottom: '1.5rem', filter: 'drop-shadow(0 0 20px rgba(255, 149, 0, 0.5))' }}
           onError={(e) => { e.target.style.display = 'none'; }}
         />
         
-        <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', fontWeight: 900, color: COLORS.text, marginBottom: '1.5rem' }}>
+        <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', fontWeight: 900, color: COLORS.text, marginBottom: '1rem' }}>
           RACE <span style={{ 
             background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)',
             WebkitBackgroundClip: 'text',
@@ -435,62 +436,59 @@ const RacePage = () => {
           }}>$15,000</span>
         </h1>
         
-        {/* Badge 2x $7,500 - AGRANDI ET PLUS VISIBLE */}
+        {/* Badge 2x $7,500 - Taille normale */}
         <div style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: '1rem',
-          background: 'rgba(255, 215, 0, 0.2)',
-          border: '2px solid rgba(255, 215, 0, 0.6)',
-          padding: '1.25rem 2.5rem',
+          gap: '0.5rem',
+          background: 'rgba(255, 215, 0, 0.15)',
+          border: '1px solid rgba(255, 215, 0, 0.4)',
+          padding: '0.5rem 1.25rem',
           borderRadius: 50,
-          marginBottom: '2.5rem'
+          marginBottom: '1rem'
         }}>
-          <span style={{ fontSize: '1.8rem' }}>💰</span>
+          <span style={{ fontSize: '1rem' }}>💰</span>
           <span style={{ 
             color: '#FFD700', 
-            fontSize: '1.6rem', 
-            fontWeight: 800,
-            letterSpacing: '2px',
-            textShadow: '0 0 10px rgba(255, 215, 0, 0.5)'
+            fontSize: '0.95rem', 
+            fontWeight: 600
           }}>2x $7,500 Bi-weekly</span>
         </div>
         
-        {/* Texte descriptif avec PLUS D'ESPACE */}
+        {/* Texte descriptif compact */}
         <p style={{ 
           color: COLORS.textMuted, 
-          fontSize: '1.15rem', 
-          maxWidth: 650, 
-          margin: '0 auto 3.5rem', 
-          lineHeight: 2 
+          fontSize: '1rem', 
+          maxWidth: 600, 
+          margin: '0 auto 2rem', 
+          lineHeight: 1.6 
         }}>
           Joue sur Roobet avec le code <span style={{
             background: '#1f2937',
-            padding: '0.3rem 0.8rem',
-            borderRadius: 6,
+            padding: '0.2rem 0.6rem',
+            borderRadius: 4,
             color: COLORS.text,
-            fontWeight: 700,
-            fontFamily: 'monospace',
-            fontSize: '1.1rem'
+            fontWeight: 600,
+            fontFamily: 'monospace'
           }}>{SITE_CODE}</span> et grimpe dans le classement !
         </p>
       </div>
 
-      {/* Countdown avec plus d'espace */}
-      <div style={{ marginBottom: '4rem' }}>
-        <p style={{ textAlign: 'center', color: COLORS.textMuted, marginBottom: '1.5rem', fontSize: '0.95rem', letterSpacing: '3px' }}>
+      {/* Countdown compact */}
+      <div style={{ marginBottom: '2.5rem' }}>
+        <p style={{ textAlign: 'center', color: COLORS.textMuted, marginBottom: '1rem', fontSize: '0.85rem', letterSpacing: '2px' }}>
           ⏰ PROCHAINE DISTRIBUTION DANS :
         </p>
         <Countdown />
       </div>
 
-      {/* Prize Pool Info avec plus d'espace */}
+      {/* Prize Pool Info compact */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-        gap: '1.5rem',
-        maxWidth: 650,
-        margin: '0 auto 4.5rem'
+        gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+        gap: '1rem',
+        maxWidth: 550,
+        margin: '0 auto 3rem'
       }}>
         {[
           { label: 'Prize Pool Total', value: '$15,000', icon: '💰' },
@@ -500,13 +498,13 @@ const RacePage = () => {
           <div key={i} style={{
             background: COLORS.cardBg,
             border: `1px solid ${COLORS.cardBorder}`,
-            borderRadius: 16,
-            padding: '1.75rem',
+            borderRadius: 12,
+            padding: '1.25rem',
             textAlign: 'center'
           }}>
-            <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>{item.icon}</div>
-            <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#FFD700', textShadow: '0 0 10px rgba(255, 215, 0, 0.5)' }}>{item.value}</div>
-            <div style={{ fontSize: '0.85rem', color: COLORS.textMuted, marginTop: '0.5rem' }}>{item.label}</div>
+            <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{item.icon}</div>
+            <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#FFD700', textShadow: '0 0 10px rgba(255, 215, 0, 0.5)' }}>{item.value}</div>
+            <div style={{ fontSize: '0.75rem', color: COLORS.textMuted, marginTop: '0.25rem' }}>{item.label}</div>
           </div>
         ))}
       </div>
@@ -517,7 +515,7 @@ const RacePage = () => {
         justifyContent: 'center', 
         alignItems: 'flex-end', 
         gap: '1rem', 
-        marginBottom: '4rem',
+        marginBottom: '3rem',
         padding: '0 1rem'
       }}>
         {/* #2 - Gauche - Plus bas */}
@@ -527,7 +525,7 @@ const RacePage = () => {
           padding: '1.5rem',
           textAlign: 'center',
           border: `2px solid #C0C0C040`,
-          width: 180,
+          width: 170,
           marginBottom: 0
         }}>
           <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🥈</div>
@@ -560,7 +558,7 @@ const RacePage = () => {
           padding: '2rem 1.5rem',
           textAlign: 'center',
           border: `2px solid #FFD70060`,
-          width: 200,
+          width: 190,
           marginBottom: 40,
           boxShadow: '0 15px 50px rgba(255, 215, 0, 0.3)'
         }}>
@@ -571,7 +569,7 @@ const RacePage = () => {
             color: '#FFD700',
             textShadow: '0 0 20px #FFD70050'
           }}>#1</div>
-          <div style={{ fontWeight: 700, color: COLORS.text, margin: '0.5rem 0', fontSize: '1.15rem' }}>
+          <div style={{ fontWeight: 700, color: COLORS.text, margin: '0.5rem 0', fontSize: '1.1rem' }}>
             {top3[0]?.name || 'Chargement...'}
           </div>
           <div style={{ fontSize: '0.85rem', color: COLORS.textMuted, marginBottom: '1rem' }}>
@@ -595,7 +593,7 @@ const RacePage = () => {
           padding: '1.25rem',
           textAlign: 'center',
           border: `2px solid #CD7F3240`,
-          width: 170,
+          width: 160,
           marginBottom: -20
         }}>
           <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🥉</div>
@@ -634,11 +632,11 @@ const RacePage = () => {
         <div style={{
           display: 'grid',
           gridTemplateColumns: '80px 1fr 1fr 120px',
-          padding: '1.5rem 2rem',
+          padding: '1.25rem 2rem',
           background: COLORS.cardBorder,
           fontWeight: 700,
           color: COLORS.textMuted,
-          fontSize: '0.85rem',
+          fontSize: '0.8rem',
           letterSpacing: '1px',
           textTransform: 'uppercase'
         }}>
@@ -653,7 +651,7 @@ const RacePage = () => {
           <div key={i} style={{
             display: 'grid',
             gridTemplateColumns: '80px 1fr 1fr 120px',
-            padding: '1.25rem 2rem',
+            padding: '1rem 2rem',
             borderTop: `1px solid ${COLORS.cardBorder}`,
             alignItems: 'center',
             background: 'transparent'
@@ -661,23 +659,23 @@ const RacePage = () => {
             <div style={{ fontWeight: 700, color: COLORS.textMuted, fontSize: '1rem' }}>
               #{player.rank}
             </div>
-            <div style={{ color: COLORS.text, fontSize: '1rem', fontWeight: 400 }}>{player.name}</div>
-            <div style={{ color: '#FFD700', fontWeight: 600, fontSize: '1rem', textShadow: '0 0 8px rgba(255, 215, 0, 0.4)' }}>${player.wagered.toLocaleString()}</div>
-            <div style={{ color: '#4ade80', fontWeight: 700, fontSize: '1.1rem', background: 'rgba(74, 222, 128, 0.1)', padding: '0.5rem 1rem', borderRadius: 20, textAlign: 'center' }}>${player.prize}</div>
+            <div style={{ color: COLORS.text, fontSize: '0.95rem', fontWeight: 400 }}>{player.name}</div>
+            <div style={{ color: '#FFD700', fontWeight: 600, fontSize: '0.95rem', textShadow: '0 0 8px rgba(255, 215, 0, 0.4)' }}>${player.wagered.toLocaleString()}</div>
+            <div style={{ color: '#4ade80', fontWeight: 700, fontSize: '1rem', background: 'rgba(74, 222, 128, 0.1)', padding: '0.4rem 0.8rem', borderRadius: 20, textAlign: 'center' }}>${player.prize}</div>
           </div>
         ))}
       </div>
 
       {/* CTA */}
-      <div style={{ textAlign: 'center', marginTop: '4rem' }}>
+      <div style={{ textAlign: 'center', marginTop: '3rem' }}>
         <button
           style={{
-            padding: '1.5rem 3.5rem',
+            padding: '1.25rem 3rem',
             background: 'linear-gradient(135deg, #ff9500 0%, #ff6b00 100%)',
             border: 'none',
             borderRadius: 50,
             color: '#fff',
-            fontSize: '1.2rem',
+            fontSize: '1.1rem',
             fontWeight: 700,
             cursor: 'pointer',
             display: 'inline-flex',
@@ -689,7 +687,7 @@ const RacePage = () => {
         >
           🦘 Rejoindre Roobet maintenant
         </button>
-        <p style={{ color: COLORS.textMuted, fontSize: '0.95rem', marginTop: '1.5rem' }}>
+        <p style={{ color: COLORS.textMuted, fontSize: '0.9rem', marginTop: '1rem' }}>
           Utilise le code <strong style={{ color: COLORS.text }}>{SITE_CODE}</strong> pour participer
         </p>
       </div>
